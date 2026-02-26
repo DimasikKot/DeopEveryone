@@ -25,7 +25,7 @@ public final class DeopEveryone extends JavaPlugin implements Listener {
             getLogger().warning("Blocked /op from chat: " + cmd);
         }
 
-        if (cmd.startsWith("/gamemode")) {
+        if (cmd.startsWith("/gamemode creative") || cmd.startsWith("/gamemode spectator")) {
             event.setCancelled(true);
             getLogger().warning("Blocked /gamemode from chat: " + cmd);
         }
@@ -45,12 +45,12 @@ public final class DeopEveryone extends JavaPlugin implements Listener {
             getLogger().warning("Blocked //op from console: " + cmd);
         }
 
-        if (cmd.startsWith("gamemode ")) {
+        if (cmd.startsWith("gamemode creative") || cmd.startsWith("gamemode spectator")) {
             event.setCancelled(true);
             getLogger().warning("Blocked /gamemode from console: " + cmd);
         }
 
-        if (cmd.startsWith("/gamemode ")) {
+        if (cmd.startsWith("/gamemode creative") || cmd.startsWith("/gamemode spectator")) {
             event.setCancelled(true);
             getLogger().warning("Blocked //gamemode from console: " + cmd);
         }
