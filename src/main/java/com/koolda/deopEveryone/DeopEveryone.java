@@ -69,10 +69,10 @@ public final class DeopEveryone extends JavaPlugin implements Listener {
                 }
 
                 // Remove CREATIVE
-                if (player.getGameMode() == GameMode.CREATIVE) {
+                if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) {
                     player.setGameMode(GameMode.SURVIVAL);
                     getLogger().warning(
-                            "Force-removed CREATIVE: " + player.getName()
+                            "Force-removed CREATIVE or SPECTATOR: " + player.getName()
                     );
                 }
             }), 0L, 20L * 10); // every 10 seconds
