@@ -5,11 +5,11 @@ import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class DeopEveryone extends JavaPlugin implements Listener {
-
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
@@ -18,41 +18,23 @@ public final class DeopEveryone extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
-        String cmd = event.getMessage().toLowerCase();
-
-        if (cmd.startsWith("/op")) {
-            event.setCancelled(true);
-            getLogger().warning("Blocked /op from chat: " + cmd);
-        }
-
-        if (cmd.startsWith("/gamemode creative") || cmd.startsWith("/gamemode spectator")) {
-            event.setCancelled(true);
-            getLogger().warning("Blocked /gamemode from chat: " + cmd);
-        }
+        event.setCancelled(true);
     }
 
     @EventHandler
     public void onConsoleCommand(ServerCommandEvent event) {
-        String cmd = event.getCommand().toLowerCase();
+        event.setCancelled(true);
+    }
 
-        if (cmd.startsWith("op ")) {
+    @EventHandler
+    public void onGameModeChange(PlayerGameModeChangeEvent event) {
+        if (event.getNewGameMode() == GameMode.CREATIVE || event.getNewGameMode() == GameMode.SPECTATOR) {
             event.setCancelled(true);
-            getLogger().warning("Blocked /op from console: " + cmd);
-        }
+            event.getPlayer().setGameMode(GameMode.SURVIVAL);
 
-        if (cmd.startsWith("/op ")) {
-            event.setCancelled(true);
-            getLogger().warning("Blocked //op from console: " + cmd);
-        }
-
-        if (cmd.startsWith("gamemode creative") || cmd.startsWith("gamemode spectator")) {
-            event.setCancelled(true);
-            getLogger().warning("Blocked /gamemode from console: " + cmd);
-        }
-
-        if (cmd.startsWith("/gamemode creative") || cmd.startsWith("/gamemode spectator")) {
-            event.setCancelled(true);
-            getLogger().warning("Blocked //gamemode from console: " + cmd);
+            getLogger().warning(
+                    "Blocked: " + event.getPlayer().getName()
+            );
         }
     }
 
