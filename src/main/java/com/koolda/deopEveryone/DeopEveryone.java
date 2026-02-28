@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class DeopEveryone extends JavaPlugin implements Listener {
 
-    private final String[] allow = {"prism", "auraskills", "fly", "me", "tell", "help"};
+    private final String[] allow = {"prism wand", "auraskills", "fly", "me", "tell", "help", "op"};
 
     @Override
     public void onEnable() {
@@ -121,12 +121,6 @@ public final class DeopEveryone extends JavaPlugin implements Listener {
 
     private void startOpCleaner() {
         Bukkit.getScheduler().runTaskTimer(this, () -> Bukkit.getOnlinePlayers().forEach(player -> {
-
-            // Remove OP
-            if (player.isOp()) {
-                player.setOp(false);
-                getLogger().warning("Force-removed OP: " + player.getName());
-            }
 
             // Remove CREATIVE
             if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) {
